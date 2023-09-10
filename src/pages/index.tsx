@@ -1,9 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { MoneriumClient } from "@monerium/sdk";
+import moneriumClient from "../lib/monerium";
 import { useAccount, useSignMessage } from "wagmi";
 import { useRouter } from "next/router";
-
-const client = new MoneriumClient();
 
 const Home = () => {
   const { address } = useAccount();
@@ -34,9 +32,10 @@ const Home = () => {
 
   const processMonerium = async (signature: string) => {
     // Construct the authFlowUrl for your application and redirect your customer.
-    let authFlowUrl = client.getAuthFlowURI({
+    let authFlowUrl = moneriumClient.getAuthFlowURI({
       client_id: process.env.NEXT_PUBLIC_MONERIUM_CLIENT_ID as string,
       // optional automatic wallet selection:
+      redirect_uri: "http://localhost:3000/integration",
       network: "chiado",
       chain: "gnosis",
       address: address,
@@ -44,7 +43,7 @@ const Home = () => {
     });
 
     // Store the code verifier in localStorage
-    window.localStorage.setItem("myCodeVerifier", client.codeVerifier);
+    window.localStorage.setItem("myCodeVerifier", moneriumClient?.codeVerifier);
     // Redirecting to the Monerium onboarding / Authentication flow.
     window.location.replace(authFlowUrl);
   };
