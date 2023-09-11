@@ -5,11 +5,11 @@ const Navbar = () => {
   return (
     <nav>
       <nav className="flex justify-between w-full p-6 text-base-100 font-bold border-b border-b-gray ">
-        <span>Rainfy</span>
+        <Link href="/">Rainfy</Link>
 
         <Menu />
         <div className="hidden lg:flex items-center space-x-9 text-base-100 font-medium leading-[1.6em]">
-          <a href="#">Dashboard</a>
+          <Link href="/dashboard">Dashboard</Link>
 
           <Link
             href="#"

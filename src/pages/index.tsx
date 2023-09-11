@@ -1,16 +1,12 @@
 import Hero from "../components/Hero";
 import Features from "../components/Features";
-import Quote from "../components/icons/Quote";
 import Faq from "../components/Faq";
-import CTA from "../components/CTA";
-import Join from "../components/Join";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <Features />
-      <Quote />
       <Faq />
     </>
   );
