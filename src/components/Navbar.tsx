@@ -4,7 +4,7 @@ import Menu from "./icons/menu";
 const Navbar = () => {
   return (
     <nav>
-      <nav className="flex justify-between w-full p-6 text-base-100 font-bold border-b border-b-gray ">
+      <nav className="flex justify-between w-full p-6 lg:px-24 text-base-100 font-bold border-b border-b-gray ">
         <Link href="/">Rainfy</Link>
 
         <Menu />
