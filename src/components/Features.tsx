@@ -1,8 +1,12 @@
+import Link from "next/link";
 import Calculator from "./icons/Calculator";
 import Carrot from "./icons/Carrot";
 import Customize from "./icons/Customize";
+import { useAccount } from "wagmi";
 
 const Features = () => {
+  const { isConnected } = useAccount();
+
   return (
     <section className="py-12 px-6 lg:py-16 lg:px-8">
       <div className="flex flex-col space-y-12 lg:space-y-16  xl:max-w-[1080px] xl:mx-auto">
@@ -80,10 +84,19 @@ const Features = () => {
 
               <div className="flex flex-col gap-y-[10px] lg:gap-y-[20px]">
                 <p className="lg:text-lg ">Ready to start saving?</p>
-                <button className="bg-yellow w-fit font-bold text-base-100 px-5 py-2 rounded-lg lg:px-9">
-                  {" "}
-                  Connect wallet →
-                </button>
+
+                {isConnected ? (
+                  <Link
+                    href="/dashboard"
+                    className="bg-yellow w-fit font-bold text-base-100 px-5 py-2 rounded-lg lg:px-9"
+                  >
+                    Start saving →
+                  </Link>
+                ) : (
+                  <button className="bg-yellow w-fit font-bold text-base-100 px-5 py-2 rounded-lg lg:px-9">
+                    Connect wallet →
+                  </button>
+                )}
               </div>
             </div>
           </div>

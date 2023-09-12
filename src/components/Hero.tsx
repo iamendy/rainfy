@@ -1,8 +1,12 @@
 import Image from "next/image";
 import preview from "../../public/img/preview.webp";
 import Stroke from "./icons/Stroke";
+import { useAccount } from "wagmi";
+import Link from "next/link";
 
 const Hero = () => {
+  const { isConnected } = useAccount();
+
   return (
     <section className="py-8 px-4 lg:pt-10 lg:px-7 pb-16">
       <header className="flex flex-col gap-y-12 xl:max-w-[1080px] xl:mx-auto">
@@ -26,10 +30,18 @@ const Hero = () => {
           </p>
 
           <div className="flex items-center justify-center">
-            <button className="bg-yellow font-bold text-base-100 px-5 py-3 rounded-lg lg:px-9">
-              {" "}
-              Connect wallet →
-            </button>
+            {isConnected ? (
+              <Link
+                href="/dashboard"
+                className="bg-yellow font-bold text-base-100 px-5 py-3 rounded-lg lg:px-9"
+              >
+                Start saving →
+              </Link>
+            ) : (
+              <button className="bg-yellow font-bold text-base-100 px-5 py-3 rounded-lg lg:px-9">
+                Connect wallet →
+              </button>
+            )}
           </div>
         </div>
 
