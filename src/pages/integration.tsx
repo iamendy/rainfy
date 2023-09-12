@@ -1,58 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import moneriumClient from "../lib/monerium";
 import axios from "axios";
+import Loader from "../components/icons/Loader";
+import { useAccount } from "wagmi";
 
 const Integration = () => {
   const router = useRouter();
-  const [accessToken, setAccessToken] = useState("");
+  const { address } = useAccount();
 
-  const handleRedirect = async () => {
-    const b = await moneriumClient?.auth({
+  const handleAuth = async () => {
+    await moneriumClient?.auth({
       client_id: process.env.NEXT_PUBLIC_MONERIUM_CLIENT_ID as string,
       code: router?.query?.code as string,
       code_verifier: window?.localStorage?.getItem("myCodeVerifier"),
       redirect_uri: "http://localhost:3000/integration",
     });
 
-    console.log(b);
-    window.localStorage.setItem("access_token", b.access_token);
-    window.localStorage.setItem("user_id", b.userId);
-
     // // User is now authenticated, get authentication data
-    const user = await moneriumClient.getAuthContext();
-    // const tokens = await moneriumClient.getTokens();
-    // const balances = await moneriumClient.getBalances();
-    // const orders = await moneriumClient.getOrders();
-    console.log(user);
-    // const userTokens = tokens?.filter((d, i) => d.network === "chiado");
-    // console.log(userTokens);
-    // console.log(balances);
-    // console.log(orders);
+    const { email } = await moneriumClient.getAuthContext();
 
-    // //setAccessToken(moneriumClient.bearerProfile?.access_token);
-    // console.log(moneriumClient.bearerProfile);
-    // console.log(moneriumClient?.codeVerifier);
+    console.log(email);
 
-    // const res = await axios.post(
-    //   `https://api.monerium.dev/profiles/${moneriumClient?.bearerProfile?.userId}`,
-    //   {
-    //     client_id: process.env.NEXT_PUBLIC_MONERIUM_CLIENT_ID as string,
-    //     grant_type: "authorization_code",
-    //     code: router?.query?.code as string,
-    //     code_verifier: window?.localStorage?.getItem("myCodeVerifier"),
-    //     redirect_uri: "http://localhost:3000/integration/monerium",
-    //   },
-    //   { Authorization: `Bearer ${moneriumClient?.bearerProfile?.access_token}` }
-    // );
-
-    // console.log(res);
+    axios
+      .post("/api/enroll-account", {
+        address,
+        email,
+      })
+      .then((d) => router.push("/dashboard"))
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
-    router?.query?.code && handleRedirect();
+    router?.query?.code && handleAuth();
   }, [router]);
 
-  return <div>integration</div>;
+  return (
+    <div className="flex items-center justify-center h-full flex-col">
+      <Loader />
+      Creating savings environment
+    </div>
+  );
 };
 export default Integration;

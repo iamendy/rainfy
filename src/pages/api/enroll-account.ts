@@ -5,25 +5,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  if (req.method === "GET") {
-    const { address } = req?.query;
-    let isUser;
-
+  if (req.method === "POST") {
+    const { address, email } = req.body;
     try {
-      const user = await prisma.user.findUnique({
-        where: {
-          //@ts-ignore
+      await prisma.user.create({
+        data: {
+          email,
           address,
         },
       });
-
-      if (user?.id) {
-        isUser = true;
-      } else {
-        isUser = false;
-      }
-
-      res.status(200).json({ isUser });
+      res.status(200).json({ msg: "success" });
     } catch (e) {
       res.status(500).json({ msg: "error occured" });
     }
