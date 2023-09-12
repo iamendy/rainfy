@@ -29,66 +29,71 @@ const ActivityBox = () => {
 
       <div className="flex justify-between mt-5">
         <div className="shadow-md bg-light w-[30%] rounded-md p-3">
-          <div className="flex justify-between">
+          <h3 className="mb-2 font-semibold">Euro Wallet</h3>
+          <div className="flex justify-between mb-2">
             <div className="flex flex-col">
               <span className="text-sm">Locked</span>
-              <span className="text-xl font-bold">$300</span>
+              <span className="text-xl font-bold">€300</span>
             </div>
 
             <div className="flex flex-col text-right">
               <span className="text-sm">Bal</span>
-              <span className="text-xl font-bold">$50</span>
+              <span className="text-xl font-bold">€50</span>
             </div>
           </div>
 
-          <div className="font-monospace text-center mt-2">05: 24: 05</div>
+          <div className="line w-[60%] mx-auto h-[1px]" />
 
-          <div className="flex items-center justify-center mt-5">
-            <button className="py-1 px-2 bg-red-500 text-white rounded">
+          <div className="flex justify-between items-center mt-2">
+            <div className="font-monospace">
+              <p className="text-xs">Locked until</p>
+              <p>05: 24: 05</p>
+            </div>
+
+            <button className="py-1 px-2 bg-red-400 hover:bg-red-500 text-white rounded">
               Break Piggy
             </button>
           </div>
         </div>
 
         <div className="shadow-md bg-light w-[30%] rounded-md p-3">
-          <div className="flex justify-between">
+          <h3 className="mb-2 font-semibold">GBP Wallet</h3>
+          <div className="flex justify-between mb-2">
             <div className="flex flex-col">
               <span className="text-sm">Locked</span>
-              <span className="text-xl font-bold">$300</span>
+              <span className="text-xl font-bold">€300</span>
             </div>
 
             <div className="flex flex-col text-right">
               <span className="text-sm">Bal</span>
-              <span className="text-xl font-bold">$50</span>
+              <span className="text-xl font-bold">€50</span>
             </div>
-          </div>
-
-          <div className="font-monospace text-center mt-2">05: 24: 05</div>
-
-          <div className="flex items-center justify-center mt-5">
-            <button className="py-1 px-2 bg-yellow shadow-sm text-black rounded">
-              Break Piggy
-            </button>
           </div>
         </div>
 
         <div className="shadow-md bg-light w-[30%] rounded-md p-3">
-          <div className="flex justify-between">
+          <h3 className="mb-2 font-semibold">USD Wallet</h3>
+          <div className="flex justify-between mb-2">
             <div className="flex flex-col">
               <span className="text-sm">Locked</span>
-              <span className="text-xl font-bold">$300</span>
+              <span className="text-xl font-bold">€300</span>
             </div>
 
             <div className="flex flex-col text-right">
               <span className="text-sm">Bal</span>
-              <span className="text-xl font-bold">$50</span>
+              <span className="text-xl font-bold">€50</span>
             </div>
           </div>
 
-          <div className="font-monospace text-center mt-2">05: 24: 05</div>
+          <div className="line w-[60%] mx-auto h-[1px] hidden" />
 
-          <div className="flex items-center justify-center mt-5">
-            <button className="py-1 px-2 bg-red-500 text-white rounded">
+          <div className="flex justify-between items-center mt-2 hidden">
+            <div className="font-monospace">
+              <p className="text-xs">Locked until</p>
+              <p>05: 24: 05</p>
+            </div>
+
+            <button className="py-1 px-2 bg-red-400 hover:bg-red-500 text-white rounded">
               Break Piggy
             </button>
           </div>
