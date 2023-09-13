@@ -1,6 +1,5 @@
 import currencies from "../constants/currencies";
 import SavingsCard from "./SavingsCard";
-import EuroCard from "./SavingsCard";
 import Fire from "./icons/Fire";
 
 const ActivityBox = () => {
