@@ -4,12 +4,22 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import currencies from "../constants/currencies";
 import UpdatePiggy from "./UpdatePiggy";
 import NewPiggy from "./NewPiggy";
+import { useContractRead, useAccount } from "wagmi";
+import connect from "../constants/connect";
+import Loader from "./icons/Loader";
 
 const SaveBox = () => {
   const [selected, setSelected] = useState(currencies[0]);
-  const [isNew, setIsNew] = useState(true);
+  const { address } = useAccount();
 
-  console.log(selected);
+  const { data: isActive, isLoading } = useContractRead({
+    //@ts-ignore
+    address: connect?.address,
+    abi: connect?.abi,
+    functionName: "isActive",
+    args: [address, selected?.symbol],
+    enabled: true,
+  });
 
   return (
     <aside className="lg:w-[30%] p-4">
@@ -71,8 +81,11 @@ const SaveBox = () => {
               </Transition>
             </div>
           </Listbox>
-
-          {isNew ? <NewPiggy /> : <UpdatePiggy />}
+          {isActive ? (
+            <UpdatePiggy />
+          ) : (
+            <NewPiggy selectedCurrency={selected} />
+          )}
         </div>
       </form>
     </aside>

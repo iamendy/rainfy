@@ -10,6 +10,7 @@ const Dashboard = () => {
   const { address } = useAccount();
   const [isLoading, setIsLoading] = useState(true);
 
+  //checks if user is registered
   const checkAuth = async () => {
     const { data } = await axios.get(`/api/auth?address=${address}`);
     setIsLoading(false);

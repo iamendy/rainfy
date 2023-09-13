@@ -1,4 +1,80 @@
-const NewPiggy = () => {
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
+import { ethers } from "ethers";
+import useEuroBalance from "../hooks/useEuroBalance";
+import { useEffect, useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
+import Loader from "./icons/Loader";
+import connect from "../constants/connect";
+
+const NewPiggy = ({ selectedCurrency }) => {
+  const [amount, setAmount] = useState("");
+  const [duration, setDuration] = useState("");
+  const { balance, isLoading } = useEuroBalance(selectedCurrency);
+  const [isApproved, setIsApproved] = useState(false);
+
+  const { address } = useAccount();
+
+  const debouncedAmount = useDebounce<string>(amount, 500);
+
+  console.log(ethers?.formatUnits(balance || "0"));
+
+  const { config } = usePrepareContractWrite({
+    address: selectedCurrency?.address,
+    abi: selectedCurrency?.abi,
+    functionName: "approve",
+    args: [connect?.address, ethers.parseEther(debouncedAmount || "0")],
+  });
+
+  const {
+    write: approveSpend,
+    data,
+    isLoading: isApproving,
+  } = useContractWrite(config);
+
+  const { isLoading: isWaitingTx } = useWaitForTransaction({
+    hash: data?.hash,
+    onSuccess(tx) {
+      //enable save button
+      setIsApproved(true);
+      refetch?.();
+    },
+  });
+
+  //-- Save -- //
+  const { config: saveConfig, refetch } = usePrepareContractWrite({
+    address: connect?.address,
+    abi: connect?.abi,
+    functionName: "createPiggy",
+    args: [
+      ethers.parseEther(debouncedAmount || "0"),
+      duration,
+      selectedCurrency?.symbol,
+    ],
+  });
+
+  const {
+    write: save,
+    data: saveData,
+    isLoading: isSaving,
+  } = useContractWrite(saveConfig);
+
+  const { isLoading: isWaitingSaveTx } = useWaitForTransaction({
+    hash: saveData?.hash,
+    onSuccess(tx) {
+      //enable save button
+      setAmount("");
+      setDuration("");
+      setIsApproved(false);
+      console.log("Successful!!!");
+    },
+  });
+
   return (
     <div className="flex flex-col gap-y-3">
       <div>
@@ -7,12 +83,16 @@ const NewPiggy = () => {
         </label>
         <div className="mt-2">
           <input
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            disabled={isApproved || isApproving || isWaitingTx}
             className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             type="email"
             placeholder="50"
           ></input>
         </div>
       </div>
+
       <div>
         <div className="flex items-center justify-between">
           <label htmlFor="" className="text-base font-medium text-gray-900">
@@ -21,25 +101,52 @@ const NewPiggy = () => {
         </div>
         <div className="mt-2">
           <input
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            disabled={isApproved}
             className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-            type="password"
+            type="text"
             placeholder="Days"
           ></input>
         </div>
       </div>
+
       <div className="flex gap-x-5">
         <button
+          onClick={() => approveSpend?.()}
+          disabled={isApproved}
           type="button"
-          className="inline-flex w-full items-center justify-center rounded-md bg-yellow hover:bg-yellow/90 px-3.5 py-2.5 font-semibold leading-7 "
+          className={`${
+            !isApproved
+              ? "bg-yellow hover:bg-yellow/90 text-black"
+              : "bg-black/10 cursor-not-allowed text-white"
+          } inline-flex w-full items-center justify-center rounded-md px-3.5 py-2.5 font-semibold leading-7 `}
         >
-          Approve
+          {isApproving ? (
+            <Loader alt />
+          ) : isWaitingTx ? (
+            <Loader alt />
+          ) : (
+            "Approve"
+          )}
         </button>
 
         <button
+          onClick={() => save?.()}
           type="button"
-          className="inline-flex w-full items-center justify-center rounded-md bg-black/10 px-3.5 py-2.5 font-semibold leading-7 text-white "
+          className={`${
+            isApproved
+              ? "bg-yellow hover:bg-yellow/90 text-black"
+              : "bg-black/10 cursor-not-allowed text-white"
+          } inline-flex w-full items-center justify-center rounded-md px-3.5 py-2.5 font-semibold leading-7 `}
         >
-          Save
+          {isSaving ? (
+            <Loader alt />
+          ) : isWaitingSaveTx ? (
+            <Loader alt />
+          ) : (
+            "Save"
+          )}
         </button>
       </div>
     </div>
