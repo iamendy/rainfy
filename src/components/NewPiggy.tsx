@@ -6,7 +6,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { ethers } from "ethers";
-import useEuroBalance from "../hooks/useEuroBalance";
+import useGetBalance from "../hooks/useGetBalance";
 import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import Loader from "./icons/Loader";
@@ -18,7 +18,7 @@ const NewPiggy = ({ selectedCurrency }) => {
   const [isApproved, setIsApproved] = useState(false);
 
   //to check amount input
-  const { balance } = useEuroBalance(selectedCurrency);
+  const { balance } = useGetBalance(selectedCurrency);
 
   const debouncedAmount = useDebounce<string>(amount, 500);
   const debouncedDuration = useDebounce<string>(duration, 500);

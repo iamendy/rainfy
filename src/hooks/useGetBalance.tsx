@@ -1,13 +1,13 @@
 import { useAccount, useContractRead } from "wagmi";
 import { ethers } from "ethers";
 
-const useEuroBalance = (selectedCurrency) => {
+const useGetBalance = (currency) => {
   const { address } = useAccount();
 
   const { data: balance, isLoading } = useContractRead({
     //@ts-ignore
-    address: selectedCurrency?.address,
-    abi: selectedCurrency?.abi,
+    address: currency?.address,
+    abi: currency?.abi,
     functionName: "balanceOf",
     args: [address],
   });
@@ -15,4 +15,4 @@ const useEuroBalance = (selectedCurrency) => {
   return { balance, isLoading };
 };
 
-export default useEuroBalance;
+export default useGetBalance;

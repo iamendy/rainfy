@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
-import useEuroBalance from "../hooks/useEuroBalance";
+import useGetBalance from "../hooks/useGetBalance";
 import {
   useContractWrite,
   usePrepareContractWrite,
@@ -17,7 +17,7 @@ const UpdatePiggy = ({ selectedCurrency }) => {
   const debouncedAmount = useDebounce<string>(amount, 500);
 
   //to check amount input
-  const { balance } = useEuroBalance(selectedCurrency);
+  const { balance } = useGetBalance(selectedCurrency);
 
   const { config } = usePrepareContractWrite({
     address: selectedCurrency?.address,
