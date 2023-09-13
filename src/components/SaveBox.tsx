@@ -82,7 +82,7 @@ const SaveBox = () => {
             </div>
           </Listbox>
           {isActive ? (
-            <UpdatePiggy />
+            <UpdatePiggy selectedCurrency={selected} />
           ) : (
             <NewPiggy selectedCurrency={selected} />
           )}

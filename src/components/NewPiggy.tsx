@@ -15,14 +15,13 @@ import connect from "../constants/connect";
 const NewPiggy = ({ selectedCurrency }) => {
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("");
-  const { balance, isLoading } = useEuroBalance(selectedCurrency);
   const [isApproved, setIsApproved] = useState(false);
 
-  const { address } = useAccount();
+  //to check amount input
+  const { balance } = useEuroBalance(selectedCurrency);
 
   const debouncedAmount = useDebounce<string>(amount, 500);
-
-  console.log(ethers?.formatUnits(balance || "0"));
+  const debouncedDuration = useDebounce<string>(duration, 500);
 
   const { config } = usePrepareContractWrite({
     address: selectedCurrency?.address,
@@ -53,7 +52,7 @@ const NewPiggy = ({ selectedCurrency }) => {
     functionName: "createPiggy",
     args: [
       ethers.parseEther(debouncedAmount || "0"),
-      duration,
+      debouncedDuration,
       selectedCurrency?.symbol,
     ],
   });
