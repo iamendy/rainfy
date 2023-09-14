@@ -23,8 +23,8 @@ const Features = () => {
           </h2>
           <p className="text-sm text-center leading-[1.75em] md:w-[70%] md:mx-auto lg:text-base lg:w-[65%]">
             Rainfy integrates Monerium to help you save your Euros, Pounds or
-            Sterling securely on Gnosis Blockchain. Earn Rainfy tokens (RTK) as
-            you save.
+            Sterling securely on Gnosis Blockchain. Earn Rainfy tokens (RAIN) as
+            you hit your savings target.
           </p>
         </div>
 

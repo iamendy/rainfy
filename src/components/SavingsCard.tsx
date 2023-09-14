@@ -20,7 +20,7 @@ const SavingsCard = ({ currency }) => {
     parseInt(record?.expiresAt)
   );
 
-  const { config } = usePrepareContractWrite({
+  const { config, refetch } = usePrepareContractWrite({
     address: connect?.address,
     abi: connect?.abi,
     functionName: "breakPiggy",
@@ -41,40 +41,46 @@ const SavingsCard = ({ currency }) => {
     },
   });
 
+  const handleBreak = async () => {
+    await refetch();
+    breakPiggy?.();
+  };
+
   return (
     <div className="relative shadow-md bg-light w-[30%] rounded-md p-3">
-      <div
-        className={`${
-          isOpen ? "flex" : "hidden"
-        } absolute text-center top-0 right-0 w-full h-full bg-white/10 p-4 backdrop-blur-lg flex-col justify-between`}
-      >
-        <h3>
-          {isCountdownCompleted
-            ? "Great Job saving! 🌦️"
-            : "You can do better! 🎳"}
-        </h3>
-        <p className="text-sm">
-          {isCountdownCompleted
-            ? "You will earn 20RTK when you break your piggy!"
-            : "You will be charged a 5% penalty if you can cancel break your piggy"}{" "}
-        </p>
+      {record?.status > 0 && (
+        <div
+          className={`${
+            isOpen ? "flex" : "hidden"
+          } absolute text-center top-0 right-0 w-full h-full bg-white/10 p-4 backdrop-blur-lg flex-col justify-between`}
+        >
+          <h3 className="font-semibold">
+            {isCountdownCompleted
+              ? "Great Job saving! 🌦️"
+              : "You can do better! 🎳"}
+          </h3>
+          <p className="text-sm">
+            {isCountdownCompleted
+              ? "You will earn 20RTK when you break your piggy!"
+              : "You will be charged 5% penalty if you break before duration"}
+          </p>
 
-        <div className="flex gap-x-2 items-center justify-between mt-2">
-          <button
-            onClick={() => breakPiggy?.()}
-            className="bg-green-600 text-white px-2 py-1 rounded-sm"
-          >
-            {isBreaking || (isWaitingTx && <Loader />)}
-            Break Piggy!
-          </button>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="border-black  text-black px-2 py-1 rounded-sm"
-          >
-            cancel
-          </button>
+          <div className="flex gap-x-2 items-center justify-between mt-2">
+            <button
+              onClick={() => handleBreak()}
+              className="bg-green-600 text-white px-2 py-1 rounded-sm w-full inline-flex justify-center items-center"
+            >
+              {isBreaking ? <Loader /> : isWaitingTx ? <Loader /> : "proceed"}
+            </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="border-black  text-black px-2 py-1 rounded-sm w-full inline-flex justify-center items-center"
+            >
+              cancel
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       <h3 className="mb-2 font-semibold">{currency?.name}</h3>
       <div className="flex justify-between mb-2">
