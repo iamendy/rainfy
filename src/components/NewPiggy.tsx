@@ -70,6 +70,7 @@ const NewPiggy = ({ selectedCurrency }) => {
       setAmount("");
       setDuration("");
       setIsApproved(false);
+      //reloadIsActive();
       console.log("Successful!!!");
     },
   });

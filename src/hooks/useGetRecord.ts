@@ -11,7 +11,7 @@ const useGetRecord = (currency) => {
     abi: connect?.abi,
     functionName: "getRecord",
     args: [address, currency?.symbol],
-    enabled: true,
+    watch: true,
   });
 
   return { record, isLoading };

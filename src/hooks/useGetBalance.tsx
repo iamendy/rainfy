@@ -10,7 +10,7 @@ const useGetBalance = (currency) => {
     abi: currency?.abi,
     functionName: "balanceOf",
     args: [address],
-    enabled: true,
+    watch: true,
   });
 
   return { balance, isLoading };

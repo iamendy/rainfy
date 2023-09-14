@@ -18,7 +18,7 @@ const SaveBox = () => {
     abi: connect?.abi,
     functionName: "isActive",
     args: [address, selected?.symbol],
-    enabled: true,
+    watch: true,
   });
 
   return (
