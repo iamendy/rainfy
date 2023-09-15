@@ -1,5 +1,5 @@
 import Image from "next/image";
-import preview from "../../public/img/preview.webp";
+import preview from "../../public/img/preview.png";
 import Stroke from "./icons/Stroke";
 import { useAccount } from "wagmi";
 import Link from "next/link";

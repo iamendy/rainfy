@@ -1,6 +1,6 @@
 const connect = {
   //rainfy contract
-  address: "0x458CF296bFbFfaEA5Ca8F1C5EE50979CD9d7Ce66",
+  address: "0x262848dA5f3eA7408d0ecF5E2DAa76e99338A74c",
   abi: [
     {
       inputs: [
@@ -184,6 +184,42 @@ const connect = {
           type: "string",
         },
       ],
+      name: "getHistory",
+      outputs: [
+        {
+          components: [
+            {
+              internalType: "uint256",
+              name: "duration",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          internalType: "struct Rainfy.Savings[]",
+          name: "",
+          type: "tuple[]",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "address",
+          name: "_owner",
+          type: "address",
+        },
+        {
+          internalType: "string",
+          name: "_currency",
+          type: "string",
+        },
+      ],
       name: "getRecord",
       outputs: [
         {
@@ -256,6 +292,19 @@ const connect = {
     },
     {
       inputs: [],
+      name: "rainfyTokenAddress",
+      outputs: [
+        {
+          internalType: "contract IERC20",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
       name: "renounceOwnership",
       outputs: [],
       stateMutability: "nonpayable",
@@ -308,7 +357,7 @@ const connect = {
   ],
   //rainfy token contract
   token: {
-    address: "0x3730594C7389ba187079cb6BB1103C53179817B0",
+    address: "0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85",
     abi: [
       {
         inputs: [

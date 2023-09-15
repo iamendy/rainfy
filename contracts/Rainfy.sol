@@ -26,7 +26,16 @@ contract Rainfy is Ownable {
     uint256 expiresAt;
   }
 
+  struct Savings {
+    uint256 duration;
+    uint256 amount;
+  }
+
+  //users active savings
   mapping(address => mapping(string => Account)) records;
+
+  //tracks all user's succesful savings
+  mapping(address => mapping(string => Savings[])) history;
 
   event Created(
     address indexed owner,
@@ -116,7 +125,7 @@ contract Rainfy is Ownable {
 
   function calculateReward(
     Account memory account
-  ) internal pure returns (uint) {
+  ) internal pure returns (uint256) {
     return (account.balance * (account.expiresAt - account.createdAt)) / 1000;
   }
 
@@ -146,12 +155,33 @@ contract Rainfy is Ownable {
       if (currency == hashedString("EUR")) {
         euroTokenAddress.transfer(msg.sender, account.balance);
         rainfyTokenAddress.transfer(msg.sender, calculateReward(account));
+        //push to history
+        Savings memory savings = Savings({
+          duration: account.expiresAt - account.createdAt,
+          amount: account.balance
+        });
+
+        history[msg.sender][_currency].push(savings);
       } else if (currency == hashedString("GBP")) {
         gbpTokenAddress.transfer(msg.sender, account.balance);
         rainfyTokenAddress.transfer(msg.sender, calculateReward(account));
+        //push to history
+        Savings memory savings = Savings({
+          duration: account.expiresAt - account.createdAt,
+          amount: account.balance
+        });
+
+        history[msg.sender][_currency].push(savings);
       } else if (currency == hashedString("USD")) {
         usdTokenAddress.transfer(msg.sender, account.balance);
         rainfyTokenAddress.transfer(msg.sender, calculateReward(account));
+        //push to history
+        Savings memory savings = Savings({
+          duration: account.expiresAt - account.createdAt,
+          amount: account.balance
+        });
+
+        history[msg.sender][_currency].push(savings);
       } else {
         revert();
       }
@@ -165,6 +195,13 @@ contract Rainfy is Ownable {
 
     records[msg.sender][_currency] = account;
     emit Broken(msg.sender, _currency, account.balance, block.timestamp);
+  }
+
+  function getHistory(
+    address _owner,
+    string calldata _currency
+  ) external view returns (Savings[] memory) {
+    return history[_owner][_currency];
   }
 
   function getRecord(
