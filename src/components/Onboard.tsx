@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Rainy from "../components/Rainy";
 import moneriumClient from "../lib/monerium";
 import { useSignMessage, useAccount } from "wagmi";
+import Loader from "./icons/Loader";
 
 const Onboard = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({
     message: "I hereby declare that I am the address owner.",
@@ -41,14 +44,17 @@ const Onboard = () => {
     <section className="flex items-center flex-col h-full">
       <Rainy />
 
-      <div className="text-center">
+      <div className="text-center flex flex-col ">
         <h3>Save for the rainy day</h3>
         <div>Please connect your Monerium account</div>
         <button
-          onClick={() => handleAuth()}
-          className="bg-yellow font-bold text-base-100 px-4 py-2 rounded-lg mt-4"
+          onClick={() => {
+            setIsLoading(true);
+            handleAuth();
+          }}
+          className="bg-yellow font-bold text-base-100 px-4 py-2 rounded-lg mt-4 flex items-center justify-center"
         >
-          Connect Monerium
+          {isLoading ? <Loader alt /> : "Connect Monerium"}
         </button>
       </div>
     </section>

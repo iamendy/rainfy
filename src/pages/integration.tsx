@@ -16,7 +16,7 @@ const Integration = () => {
       //@ts-ignore
       code_verifier: window?.localStorage?.getItem("myCodeVerifier"),
       //@ts-ignore
-      redirect_uri: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+      redirect_uri: process.env.NEXT_PUBLIC_NEXTAUTH_URL + "/integration",
     });
 
     // // User is now authenticated, get authentication data
