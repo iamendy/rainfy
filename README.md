@@ -19,7 +19,7 @@ Our features empowers personal financial habits by:
 - Implementing early retrieval penalty fee, which helps guide them on your journey to financial well-being.
 - A gamified earning model that rewards users in RAIN tokens as they meet your savings goals.
 
-![Rainfy Dashboard](/public/img/preview.png)
+![Rainfy Dashboard](/public/img/dashboard-screen.png)
 
 ## 💻 How we built Rainfy
 
@@ -27,13 +27,13 @@ We created 2 smart contracts in Solidity, [**Rainfy.sol**](https://github.com/ia
 
 - The Rainfy handles the piggy bank creation, management and breaking after duration. This contract is deployed on Gnosis Chain and enables
 
-1. Savings [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0xcf2570d8061ce15d0b60406c350288870da64530c3eb7704bee0400bf52e36d8)
+1. Savings [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0xb20c4fb6af21901533b19c1ac5ce36a7e2775efcc7049e6f44f747f77927d2e0)
 
-2. Break Piggy [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0x850f68b0296da6bb4c0fa68f87d20b6dcdd6f49cce4eefd6d8717b6d0901e1fc)
+2. Break Piggy [View txn on Gnosis Chiado](https://gnosis-chiado.blockscout.com/tx/0x7bea58bee8ba73e866846dd29aa78be8b2ec7cdf5225053f737da67683ce732b)
 
-3. Earn RAIN token. RAIN serves as a dApp utility token. It is an ERC20 token that users earn when they successfully achieve their savings goal [View on Gnosis Chiado](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85)
+3. Earn RAIN token. RAIN serves as a dApp utility token. It is an ERC20 token that users earn when they successfully achieve their savings goal [View on Gnosis Chiado](https://gnosis-chiado.blockscout.com/address/0x5A505E3f96bB4d322aaA9Eb81d82B330DB2dAA85?tab=internal_txns)
 
-For the dApp, We used **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`NextJs/PostgresSQL`** and **`Monerium SDK`**.
+For the dApp, We used **`NextJs/Typescript`**, **`Wagmi`**, **`Rainbowkit`**, **`Prisma`**, **`TailwindCSS`**, **`PostgresSQL`** and **`Monerium SDK`**.
 
 Rainfy integrates with Monerium which allows easy conversion of fiat Euro, USD and GBP into their stablecoin equivalent. Givvie then enables users to basically save their fiat on-chain and access financial benefits.
 
@@ -70,7 +70,7 @@ Note: Recommend using [Remix](https://remix.ethereum.org) for quick smart contra
 
 4. Setup a PostGreSQL instance from [Railway](https://railway.app) (for authentication)
 
-5. run `cp .env.exaple .env`
+5. run `cp .env.example .env`
 
 6. Update `DATABASE_URL` from Railway on the .env file
 
