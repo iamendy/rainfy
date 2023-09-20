@@ -15,7 +15,8 @@ const Integration = () => {
       code: router?.query?.code as string,
       //@ts-ignore
       code_verifier: window?.localStorage?.getItem("myCodeVerifier"),
-      redirect_uri: "http://localhost:3000/integration",
+      //@ts-ignore
+      redirect_uri: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
     });
 
     // // User is now authenticated, get authentication data
