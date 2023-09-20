@@ -26,7 +26,7 @@ const Onboard = () => {
     let authFlowUrl = moneriumClient.getAuthFlowURI({
       client_id: process.env.NEXT_PUBLIC_MONERIUM_CLIENT_ID as string,
       // optional automatic wallet selection:
-      redirect_uri: "http://localhost:3000/integration",
+      redirect_uri: process.env.NEXT_PUBLIC_NEXTAUTH_URL + "/integration",
       network: "chiado",
       chain: "gnosis",
       address: address,
