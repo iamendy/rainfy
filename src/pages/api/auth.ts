@@ -10,7 +10,7 @@ export default async function handler(
     let isUser;
 
     try {
-      const user = await prisma.user.findUnique({
+      const user = await prisma.user.findFirst({
         where: {
           //@ts-ignore
           address,

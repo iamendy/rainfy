@@ -25,6 +25,7 @@ const ActivityBox = () => {
   }, []);
 
   const { data: tokenBalance } = useContractRead({
+    //@ts-ignore
     address: connect?.token.address,
     abi: connect?.token?.abi,
     functionName: "balanceOf",
@@ -37,7 +38,11 @@ const ActivityBox = () => {
       <div className="flex justify-between mb-6">
         <h3>Welcome {user},</h3>
         <div className="flex">
-          <Fire /> {ethers.formatEther(tokenBalance || "0")}
+          <Fire />{" "}
+          {
+            //@ts-ignore
+            ethers.formatEther(tokenBalance || "0")
+          }
         </div>
       </div>
 

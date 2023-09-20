@@ -1,12 +1,13 @@
 import { useAccount, useContractRead } from "wagmi";
-import { ethers } from "ethers";
+import Currency from "../types";
 
-const useGetBalance = (currency) => {
+const useGetBalance = (currency: Currency) => {
   const { address } = useAccount();
 
   const { data: balance, isLoading } = useContractRead({
     //@ts-ignore
     address: currency?.address,
+    //@ts-ignore
     abi: currency?.abi,
     functionName: "balanceOf",
     args: [address],

@@ -1,8 +1,8 @@
 import { useAccount, useContractRead } from "wagmi";
-import { ethers } from "ethers";
 import connect from "../constants/connect";
+import Currency from "../types";
 
-const useGetRecord = (currency) => {
+const useGetRecord = (currency: Currency) => {
   const { address } = useAccount();
 
   const { data: record, isLoading } = useContractRead({

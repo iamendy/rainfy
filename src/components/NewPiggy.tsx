@@ -11,8 +11,9 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import Loader from "./icons/Loader";
 import connect from "../constants/connect";
+import Currency from "../types";
 
-const NewPiggy = ({ selectedCurrency }) => {
+const NewPiggy = ({ selectedCurrency }: { selectedCurrency: Currency }) => {
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("");
   const [isApproved, setIsApproved] = useState(false);
@@ -24,7 +25,9 @@ const NewPiggy = ({ selectedCurrency }) => {
   const debouncedDuration = useDebounce<string>(duration, 500);
 
   const { config } = usePrepareContractWrite({
+    //@ts-ignore
     address: selectedCurrency?.address,
+    //@ts-ignore
     abi: selectedCurrency?.abi,
     functionName: "approve",
     args: [connect?.address, ethers.parseEther(debouncedAmount || "0")],
@@ -47,6 +50,7 @@ const NewPiggy = ({ selectedCurrency }) => {
 
   //-- Save -- //
   const { config: saveConfig, refetch } = usePrepareContractWrite({
+    //@ts-ignore
     address: connect?.address,
     abi: connect?.abi,
     functionName: "createPiggy",

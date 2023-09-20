@@ -27,6 +27,7 @@ const SavingsGraph = () => {
   const { address } = useAccount();
 
   const { data: history } = useContractRead({
+    //@ts-ignore
     address: connect?.address,
     abi: connect?.abi,
     functionName: "getHistory",
@@ -58,11 +59,14 @@ const SavingsGraph = () => {
     <div className="mt-9">
       <h3 className="font-semibold mb-1">Savings Trend</h3>
 
-      {history?.length > 0 ? (
-        <Line data={chartData}>Graph here</Line>
-      ) : (
-        <div className="text-center">No record found</div>
-      )}
+      {
+        //@ts-ignore
+        history?.length > 0 ? (
+          <Line data={chartData}>Graph here</Line>
+        ) : (
+          <div className="text-left">No record found</div>
+        )
+      }
     </div>
   );
 };

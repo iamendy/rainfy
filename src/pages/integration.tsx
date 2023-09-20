@@ -13,6 +13,7 @@ const Integration = () => {
     await moneriumClient?.auth({
       client_id: process.env.NEXT_PUBLIC_MONERIUM_CLIENT_ID as string,
       code: router?.query?.code as string,
+      //@ts-ignore
       code_verifier: window?.localStorage?.getItem("myCodeVerifier"),
       redirect_uri: "http://localhost:3000/integration",
     });

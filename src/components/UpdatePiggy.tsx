@@ -9,8 +9,9 @@ import {
 import connect from "../constants/connect";
 import { ethers } from "ethers";
 import Loader from "./icons/Loader";
+import Currency from "../types";
 
-const UpdatePiggy = ({ selectedCurrency }) => {
+const UpdatePiggy = ({ selectedCurrency }: { selectedCurrency: Currency }) => {
   const [amount, setAmount] = useState("");
   const [isApproved, setIsApproved] = useState(false);
 
@@ -20,7 +21,9 @@ const UpdatePiggy = ({ selectedCurrency }) => {
   const { balance } = useGetBalance(selectedCurrency);
 
   const { config } = usePrepareContractWrite({
+    //@ts-ignore
     address: selectedCurrency?.address,
+    //@ts-ignore
     abi: selectedCurrency?.abi,
     functionName: "approve",
     args: [connect?.address, ethers.parseEther(debouncedAmount || "0")],
@@ -43,6 +46,7 @@ const UpdatePiggy = ({ selectedCurrency }) => {
 
   //-- Save -- //
   const { config: saveConfig, refetch } = usePrepareContractWrite({
+    //@ts-ignore
     address: connect?.address,
     abi: connect?.abi,
     functionName: "updateBalance",

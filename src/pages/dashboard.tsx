@@ -12,10 +12,12 @@ const Dashboard = () => {
 
   //checks if user is registered
   const checkAuth = async () => {
-    const { data } = await axios.get(`/api/auth?address=${address}`);
-    setIsLoading(false);
-    //resolves which screen to display
-    data?.isUser ? setIsOnboard(false) : setIsOnboard(true);
+    if (address !== undefined) {
+      const { data } = await axios.get(`/api/auth?address=${address}`);
+      setIsLoading(false);
+      //resolves which screen to display
+      data?.isUser ? setIsOnboard(false) : setIsOnboard(true);
+    }
   };
 
   useEffect(() => {
