@@ -1,8 +1,8 @@
 # Rainfy x Gnosis [Techfiesta]
 
-Live Demo - [Loom](https://youtu.be/pw_UZUs1FkY) <br />
-Live Link - [Rainfy](https://rainfy.vercel.app) <br />
-Slides - [Slides](https://rainfy.vercel.app/RainfySlides.pdf)
+Live Demo - [YouTube Video](https://youtu.be/pw_UZUs1FkY) <br />
+Live Link - [Rainfy dApp](https://rainfy.vercel.app) <br />
+Slides - [Presentation Slides](https://rainfy.vercel.app/RainfySlides.pdf)
 
 ## ✨ Inspiration
 
